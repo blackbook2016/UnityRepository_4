@@ -89,8 +89,8 @@ public class GazeInputModule : BaseInputModule {
 
 	private LineRenderer lr;
 	private CardboardHead head;
-	private Vector3 destination_lr;
-	private float l_Dist;
+	private Rigidbody rb_Draggable;
+	private float dist_Draggable ;
 	
 	/// @cond HIDDEN
 	public override bool ShouldActivateModule() {
@@ -120,7 +120,7 @@ public class GazeInputModule : BaseInputModule {
 	public override void Process() {
 		CastRayFromGaze();
 		UpdateCurrentObject();
-		PlaceCursor();
+//		PlaceCursor();
 		
 		if (!Cardboard.SDK.TapIsTrigger && !Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) {
 			// Drag is only supported if TapIsTrigger is false.
@@ -171,14 +171,52 @@ public class GazeInputModule : BaseInputModule {
 	}
 
 	public void SetCursor ()
-	{
-		var go = pointerData.pointerCurrentRaycast.gameObject;
-		Camera cam = pointerData.enterEventCamera; 
-		if(go != null && cam != null)
+	{		
+		Vector3 destination_lr;
+
+		if(!head)
+			head = Camera.main.GetComponent<StereoController>().Head;
+		if(!lr)
+			lr = GetComponent<LineRenderer>();
+
+		if(pointerData != null)
 		{
-			float dist = pointerData.pointerCurrentRaycast.distance + cam.nearClipPlane;
-			cursor.transform.position = cam.transform.position + cam.transform.forward * dist;
+			var go = pointerData.pointerCurrentRaycast.gameObject;
+			Camera cam = pointerData.enterEventCamera; 
+			if(go != null && cam != null)
+			{
+				float dist = pointerData.pointerCurrentRaycast.distance + cam.nearClipPlane;
+				destination_lr = cam.transform.position + cam.transform.forward * (dist - 0.7f);
+
+				if(Input.GetMouseButtonDown(0) && go.GetComponent<Rigidbody>())
+				{
+					rb_Draggable = go.GetComponent<Rigidbody>();
+					dist_Draggable = Vector3.Distance(Cardboard.SDK.transform.position, go.transform.position);
+				}
+			}
+			else
+				destination_lr = head.Gaze.GetPoint(10);
+			
+			cursor.transform.position = destination_lr;
 		}
+
+		if(rb_Draggable)
+		{
+			if(Input.GetMouseButton(0))
+			{
+				Vector3 vel = head.Gaze.GetPoint(dist_Draggable) - rb_Draggable.transform.position;
+				rb_Draggable.velocity = vel * vel.magnitude;
+			}
+			else if(Input.GetMouseButtonUp(0))
+			{
+				rb_Draggable = null;
+			}
+		}
+
+		Vector3 pos = Cardboard.SDK.transform.position;
+		pos.y -= 0.1f;
+		lr.SetPosition(0, pos);
+		lr.SetPosition(1, cursor.transform.position);
 	}
 
 	private void PlaceCursor() {
