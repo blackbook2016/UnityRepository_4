@@ -27,5 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SaveState_Sample.unity
   - enabled: 0
     path: Assets/OVR/Scenes/Cubes.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/1_Project/1_Scenes/ProtoOG_0.1.unity
+  - enabled: 1
+    path: Assets/1_Project/1_Scenes/ProtoOG_0.2.unity

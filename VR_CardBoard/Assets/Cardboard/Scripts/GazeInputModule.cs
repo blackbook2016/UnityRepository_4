@@ -192,6 +192,8 @@ public class GazeInputModule : BaseInputModule {
 				{
 					rb_Draggable = go.GetComponent<Rigidbody>();
 					dist_Draggable = Vector3.Distance(Cardboard.SDK.transform.position, go.transform.position);
+
+					go.GetComponent<ObjectDraggable>().RequestOwnership();
 				}
 			}
 			else
@@ -205,7 +207,7 @@ public class GazeInputModule : BaseInputModule {
 			if(Input.GetMouseButton(0))
 			{
 				Vector3 vel = head.Gaze.GetPoint(dist_Draggable) - rb_Draggable.transform.position;
-				rb_Draggable.velocity = vel * vel.magnitude;
+				rb_Draggable.GetComponent<ObjectDraggable>().ChangeVelocity(vel * vel.magnitude);
 			}
 			else if(Input.GetMouseButtonUp(0))
 			{
