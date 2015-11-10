@@ -188,12 +188,19 @@ public class GazeInputModule : BaseInputModule {
 				float dist = pointerData.pointerCurrentRaycast.distance + cam.nearClipPlane;
 				destination_lr = cam.transform.position + cam.transform.forward * (dist - 0.7f);
 
-				if(Input.GetMouseButtonDown(0) && go.GetComponent<Rigidbody>())
+				if(Input.GetMouseButtonDown(0))
 				{
-					rb_Draggable = go.GetComponent<Rigidbody>();
-					dist_Draggable = Vector3.Distance(Cardboard.SDK.transform.position, go.transform.position);
-
-					go.GetComponent<ObjectDraggable>().RequestOwnership();
+					if(go.GetComponent<Rigidbody>())
+					{
+						rb_Draggable = go.GetComponent<Rigidbody>();
+						dist_Draggable = Vector3.Distance(Cardboard.SDK.transform.position, go.transform.position);
+						
+						go.GetComponent<ObjectDraggable>().RequestOwnership();
+					}
+					else if(go.tag == "Player")
+					{
+						EventManager_IMGT.Instance.RPCReset();
+					}
 				}
 			}
 			else

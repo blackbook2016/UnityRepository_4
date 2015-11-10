@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class RPGCamera : MonoBehaviour 
+public class RPGCamera : Singleton<RPGCamera> 
 {
     public Transform Target;
 

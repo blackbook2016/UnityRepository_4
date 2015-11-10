@@ -611,13 +611,13 @@ public class Cardboard : MonoBehaviour {
       InitDevice();
     }
 #endif
-		EventManager.gameReset += Recenter;
+		EventManager_IMGT.gameReset += Recenter;
     device.OnPause(false);
     StartCoroutine("EndOfFrame");
   }
 
 	void OnDisable() {
-		EventManager.gameReset -= Recenter;
+		EventManager_IMGT.gameReset -= Recenter;
     StopCoroutine("EndOfFrame");
     device.OnPause(true);
   }

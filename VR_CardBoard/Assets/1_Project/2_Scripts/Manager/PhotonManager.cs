@@ -42,7 +42,8 @@ public class PhotonManager : Photon.PunBehaviour
 
 	public override void OnJoinedRoom()
 	{
-		print ("Joined Room");
+//		print ("Joined Room");
+		SceneLoader_IMGT.Instance.LoadScene();
 	}
 
 	public override void OnConnectedToMaster()

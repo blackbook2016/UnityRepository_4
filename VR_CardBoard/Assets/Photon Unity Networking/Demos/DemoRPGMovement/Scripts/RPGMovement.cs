@@ -146,4 +146,25 @@ public class RPGMovement : MonoBehaviour
             transform.Rotate( 0, RotateSpeed * Time.deltaTime, 0 );
         }
     }
+
+	public void Reset()
+	{
+		if( m_PhotonView.isMine == true )
+		{
+			ResetSpeedValues();
+			
+			UpdateRotateMovement();
+			
+			UpdateForwardMovement();
+			UpdateBackwardMovement();
+			UpdateStrafeMovement();
+			
+			MoveCharacterController();
+			ApplyGravityToCharacterController();
+			
+			ApplySynchronizedValues();
+		}
+		
+		UpdateAnimation();
+	}
 }
