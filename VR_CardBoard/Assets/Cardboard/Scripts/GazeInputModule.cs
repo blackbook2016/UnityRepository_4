@@ -221,7 +221,7 @@ public class GazeInputModule : BaseInputModule {
 				rb_Draggable = null;
 			}
 		}
-
+		Player_CB_IMGT.Instance.RPCUpdateTrs(head.transform.rotation);
 		Vector3 pos = Cardboard.SDK.transform.position;
 		pos.y -= 0.1f;
 		lr.SetPosition(0, pos);

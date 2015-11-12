@@ -38,5 +38,4 @@ public class Player_IMGT : MonoBehaviour
 			RPGCamera.Instance.transform.eulerAngles = Vector3.up * 180;
 		}
 	}
-
 }

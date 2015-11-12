@@ -14,8 +14,7 @@ public class SceneLoader_IMGT : Singleton<SceneLoader_IMGT>
 	{		
 		#if UNITY_ANDROID
 		Cardboard_prefab.SetActive(true);
-		ui.SetActive(true);
-
+		UIManager_IMGT.Instance.LoadUI();
 		#elif UNITY_STANDALONE
 		GameObject player = PhotonNetwork.Instantiate("Robot Kyle RP", Vector3.forward * 15, Quaternion.identity, 0);
 		player.transform.eulerAngles = Vector3.up * 180;

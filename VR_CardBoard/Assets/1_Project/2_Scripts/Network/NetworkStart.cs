@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.VR;
 public class NetworkStart : MonoBehaviour 
