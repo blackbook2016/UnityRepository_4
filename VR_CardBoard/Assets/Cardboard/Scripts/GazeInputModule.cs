@@ -195,7 +195,8 @@ public class GazeInputModule : BaseInputModule {
 						rb_Draggable = go.GetComponent<Rigidbody>();
 						dist_Draggable = Vector3.Distance(Cardboard.SDK.transform.position, go.transform.position);
 						
-						go.GetComponent<ObjectDraggable>().RequestOwnership();
+						if(Application.loadedLevelName != "ProtoANMP_0.1")
+							go.GetComponent<ObjectDraggable>().RequestOwnership();
 					}
 					else if(go.tag == "Player")
 					{
@@ -211,17 +212,38 @@ public class GazeInputModule : BaseInputModule {
 
 		if(rb_Draggable)
 		{
-			if(Input.GetMouseButton(0))
+			if(rb_Draggable.GetComponent<ObjectDraggable>())
 			{
-				Vector3 vel = head.Gaze.GetPoint(dist_Draggable) - rb_Draggable.transform.position;
-				rb_Draggable.GetComponent<ObjectDraggable>().ChangeVelocity(vel * vel.magnitude);
+				if(Input.GetMouseButton(0))
+				{
+					Vector3 vel = head.Gaze.GetPoint(dist_Draggable) - rb_Draggable.transform.position;
+					rb_Draggable.GetComponent<ObjectDraggable>().ChangeVelocity(vel * vel.magnitude);
+				}
+				else if(Input.GetMouseButtonUp(0))
+				{
+					rb_Draggable = null;
+				}
 			}
-			else if(Input.GetMouseButtonUp(0))
+			else
+				if(rb_Draggable.GetComponent<ObjectDraggable_ANMP>())
 			{
-				rb_Draggable = null;
+				if(Input.GetMouseButton(0))
+				{
+					Vector3 vel = head.Gaze.GetPoint(dist_Draggable) - rb_Draggable.transform.position;
+					rb_Draggable.GetComponent<ObjectDraggable_ANMP>().ChangeVelocity(vel * vel.magnitude);
+				}
+				else if(Input.GetMouseButtonUp(0))
+				{
+					rb_Draggable = null;
+				}
 			}
 		}
-		Player_CB_IMGT.Instance.RPCUpdateTrs(head.transform.rotation);
+
+
+		if(Application.loadedLevelName != "ProtoANMP_0.1")
+			Player_CB_IMGT.Instance.RPCUpdateTrs(head.transform.rotation);
+
+
 		Vector3 pos = Cardboard.SDK.transform.position;
 		pos.y -= 0.1f;
 		lr.SetPosition(0, pos);

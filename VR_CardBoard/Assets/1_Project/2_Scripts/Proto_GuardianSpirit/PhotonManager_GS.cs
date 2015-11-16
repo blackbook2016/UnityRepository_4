@@ -62,7 +62,7 @@ public class PhotonManager_GS : Photon.PunBehaviour
 	
 	public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
 	{
-		if (PhotonNetwork.playerList.Length == 2) 
+		if (PhotonNetwork.playerList.Length % 2 == 0) 
 		{
 			GameManager_GS.Instance.StartGame();
 		} 

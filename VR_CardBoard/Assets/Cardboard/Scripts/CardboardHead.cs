@@ -115,6 +115,10 @@ public class CardboardHead : MonoBehaviour {
 				transform.position = target.position + target.rotation * pos;
 			}
 		}
-		GazeInputModule.Instance.SetCursor();
+
+		if(Application.loadedLevelName != "!ProtoCB_GS_0.1")
+		{
+			GazeInputModule.Instance.SetCursor();
+		}
 	}
 }
