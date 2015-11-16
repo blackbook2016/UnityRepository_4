@@ -17,7 +17,7 @@ public class PhotonManager_IMGT : Photon.PunBehaviour
 		}
 	}
 	private static PhotonManager_IMGT instance = null;
-	
+
 	void OnGUI()
 	{
 		GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
@@ -47,7 +47,7 @@ public class PhotonManager_IMGT : Photon.PunBehaviour
 		// when AutoJoinLobby is off, this method gets called when PUN finished the connection (instead of OnJoinedLobby())
 		PhotonNetwork.JoinRandomRoom();
 	}
-
+	
 	public PeerState ConnectionStateDetailed()
 	{
 		return PhotonNetwork.connectionStateDetailed;

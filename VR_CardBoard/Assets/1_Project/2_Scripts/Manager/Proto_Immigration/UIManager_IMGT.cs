@@ -48,7 +48,7 @@ public class UIManager_IMGT : Singleton<UIManager_IMGT>
 	
 	void GameOver(bool status)
 	{
-		text_GameOver.text = status ? "VICTORY!!!" : "DEFEAT!!!";
+		text_GameOver.text = status ? "Frontière traversée" : "Vous avez été détecté";
 		panel_EndGame.SetActive(true);
 	}
 
