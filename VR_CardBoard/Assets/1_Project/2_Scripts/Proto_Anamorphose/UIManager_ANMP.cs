@@ -6,6 +6,8 @@ public class UIManager_ANMP : Singleton<UIManager_ANMP>
 {
 	[SerializeField]
 	private Transform trs_Panel_FloorMenu;
+	[SerializeField]
+	private Transform trs_Panel_Overlay;
 
 	private CardboardHead head;
 
@@ -17,7 +19,15 @@ public class UIManager_ANMP : Singleton<UIManager_ANMP>
 	void Update () 
 	{
 		Vector3 pos = head.transform.position;
-		pos.y -= 1f;
+		pos.y -= 0.5f;
 		trs_Panel_FloorMenu.position = pos;
+	}
+
+	public void UpdatePanelOverlay()
+	{
+//		Vector3 pos = head.transform.position;
+//		pos += head.transform.forward * 3;
+//		trs_Panel_Overlay.position = pos;
+//		trs_Panel_Overlay.rotation = head.transform.rotation;
 	}
 }

@@ -116,9 +116,14 @@ public class CardboardHead : MonoBehaviour {
 			}
 		}
 
-		if(Application.loadedLevelName != "!ProtoCB_GS_0.1")
-		{
-			GazeInputModule.Instance.SetCursor();
-		}
+//		if(Application.loadedLevelName == "ProtoANMP_0.1")
+//		{
+//			UIManager_ANMP.Instance.UpdatePanelOverlay();
+//		}
+//
+//		if(Application.loadedLevelName != "!ProtoCB_GS_0.1")
+//		{
+//			GazeInputModule.Instance.SetCursor();
+//		}
 	}
 }

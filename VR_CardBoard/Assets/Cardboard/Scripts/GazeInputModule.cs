@@ -121,6 +121,7 @@ public class GazeInputModule : BaseInputModule {
 		CastRayFromGaze();
 		UpdateCurrentObject();
 //		PlaceCursor();
+		SetCursor ();
 		
 		if (!Cardboard.SDK.TapIsTrigger && !Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) {
 			// Drag is only supported if TapIsTrigger is false.
@@ -207,10 +208,10 @@ public class GazeInputModule : BaseInputModule {
 			else
 				destination_lr = head.Gaze.GetPoint(10);
 
-			if(pointerData.pointerCurrentRaycast.distance + cam.nearClipPlane <= 2)
-				cursor.transform.localScale = Vector3.one * 0.001f;
-			else
-				cursor.transform.localScale = Vector3.one * 0.1f;
+//			if(pointerData.pointerCurrentRaycast.distance + cam.nearClipPlane <= 2)
+//				cursor.transform.localScale = Vector3.one * 0.001f;
+//			else
+//				cursor.transform.localScale = Vector3.one * 0.1f;
 
 			cursor.transform.position = destination_lr;
 		}
