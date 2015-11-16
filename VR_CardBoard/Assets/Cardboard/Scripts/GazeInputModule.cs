@@ -206,7 +206,12 @@ public class GazeInputModule : BaseInputModule {
 			}
 			else
 				destination_lr = head.Gaze.GetPoint(10);
-			
+
+			if(pointerData.pointerCurrentRaycast.distance + cam.nearClipPlane <= 2)
+				cursor.transform.localScale = Vector3.one * 0.001f;
+			else
+				cursor.transform.localScale = Vector3.one * 0.1f;
+
 			cursor.transform.position = destination_lr;
 		}
 

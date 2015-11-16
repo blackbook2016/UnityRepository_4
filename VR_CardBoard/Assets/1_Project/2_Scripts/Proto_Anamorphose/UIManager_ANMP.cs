@@ -6,8 +6,13 @@ public class UIManager_ANMP : Singleton<UIManager_ANMP>
 {
 	[SerializeField]
 	private Transform trs_Panel_FloorMenu;
-	[SerializeField]
+
 	private CardboardHead head;
+
+	void Start()
+	{		
+		head = Camera.main.GetComponent<StereoController>().Head;
+	}
 
 	void Update () 
 	{
