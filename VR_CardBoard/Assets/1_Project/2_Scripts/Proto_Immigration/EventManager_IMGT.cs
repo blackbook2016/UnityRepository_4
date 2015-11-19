@@ -11,7 +11,7 @@ public class EventManager_IMGT : Singleton<EventManager_IMGT>
 	
 	public void Start()
 	{		
-		photonView = GetComponent<PhotonView>();
+		photonView = PhotonView.Get(this);
 	}
 	
 	public void RPCReset()

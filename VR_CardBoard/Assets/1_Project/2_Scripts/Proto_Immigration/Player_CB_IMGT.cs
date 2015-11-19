@@ -23,7 +23,7 @@ public class Player_CB_IMGT : MonoBehaviour
 	
 	public void Start()
 	{				
-		photonView = GetComponent<PhotonView>();
+		photonView = PhotonView.Get(this);
 	}
 
 	public void RPCUpdateTrs(Quaternion rot)

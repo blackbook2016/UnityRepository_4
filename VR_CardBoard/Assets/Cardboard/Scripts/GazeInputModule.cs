@@ -121,7 +121,6 @@ public class GazeInputModule : BaseInputModule {
 		CastRayFromGaze();
 		UpdateCurrentObject();
 //		PlaceCursor();
-//		SetCursor ();
 		
 		if (!Cardboard.SDK.TapIsTrigger && !Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) {
 			// Drag is only supported if TapIsTrigger is false.
@@ -136,6 +135,11 @@ public class GazeInputModule : BaseInputModule {
 			// Check if there is a pending click to handle.
 			HandlePendingClick();
 		}
+	}
+
+	public void LateUpdate()
+	{
+		SetCursor ();
 	}
 	/// @endcond
 	

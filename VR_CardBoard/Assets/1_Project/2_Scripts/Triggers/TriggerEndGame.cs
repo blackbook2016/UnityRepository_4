@@ -21,7 +21,7 @@ public class TriggerEndGame : MonoBehaviour
 
 	void HandlegameReset ()
 	{
-		
+		isActive = true;
 	}
 
 	void OnDisable()
