@@ -77,7 +77,8 @@ public class CardboardHead : MonoBehaviour {
 	
 	private bool updated;
 	
-	void Update() {
+	void Update() 
+	{
 		updated = false;  // OK to recompute head pose.
 		if (updateEarly) {
 			UpdateHead();
@@ -116,10 +117,12 @@ public class CardboardHead : MonoBehaviour {
 			}
 		}
 
-//		if(Application.loadedLevelName == "ProtoANMP_0.1")
-//		{
-//			UIManager_ANMP.Instance.UpdatePanelOverlay();
-//		}
+		if(Application.loadedLevelName == "ProtoANMP_0.1")
+		{
+//			UIManager_ANMP.Instance.UpdatePanelHUD();
+			
+//			CameraManager_ANMP.Instance.CheckDraggable();
+		}
 //
 //		if(Application.loadedLevelName != "!ProtoCB_GS_0.1")
 //		{

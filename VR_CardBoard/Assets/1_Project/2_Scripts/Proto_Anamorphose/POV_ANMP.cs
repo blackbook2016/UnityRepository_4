@@ -4,15 +4,25 @@ using System.Collections;
 public class POV_ANMP : MonoBehaviour 
 {
 	private MeshRenderer mr;
+	[SerializeField]
 	private float fadeSpeed = 1f;
+
+	private bool isReachable = true;
 	
 	void Start () 
 	{
 		mr = GetComponent<MeshRenderer>();
 	}
+
+	public bool IsReachable()
+	{
+		return isReachable;
+	}
 	
 	public IEnumerator FadeIn()
 	{
+		isReachable = true;
+
 		Color c = mr.material.color;
 		
 		while(c.a < 1)
@@ -30,6 +40,8 @@ public class POV_ANMP : MonoBehaviour
 	
 	public IEnumerator FadeOut()
 	{
+		isReachable = false;
+
 		Color c = mr.material.color;
 		
 		while(c.a > 0)

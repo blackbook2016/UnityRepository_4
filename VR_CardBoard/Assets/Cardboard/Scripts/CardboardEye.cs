@@ -252,6 +252,7 @@ public class CardboardEye : MonoBehaviour {
   /// depth of the camera's window.  See SetupStereo().
   public void CopyCameraAndMakeSideBySide(StereoController controller,
                                           float parx = 0, float pary = 0) {
+//		print ("here");
 #if UNITY_EDITOR
     // Member variable 'camera' not always initialized when this method called in Editor.
     // So, we'll just make a local of the same name.  Same for controller's camera.
@@ -262,11 +263,12 @@ public class CardboardEye : MonoBehaviour {
     float ipd = CardboardProfile.Default.device.lenses.separation * controller.stereoMultiplier;
     Vector3 localPosition = Application.isPlaying ?
         transform.localPosition : (eye == Cardboard.Eye.Left ? -ipd/2 : ipd/2) * Vector3.right;;
-
     // Sync the camera properties.
-    camera.CopyFrom(monoCamera);
-    camera.cullingMask ^= toggleCullingMask.value;
-
+//		int initMask = camera.cullingMask;
+//    camera.CopyFrom(monoCamera);
+//    camera.cullingMask ^= toggleCullingMask.value;
+//		camera.cullingMask = initMask;
+		camera.rect = monoCamera.rect;
     // Not sure why we have to do this, but if we don't then switching between drawing to
     // the main screen or to the stereo rendertexture acts very strangely.
     camera.depth = monoCamera.depth;

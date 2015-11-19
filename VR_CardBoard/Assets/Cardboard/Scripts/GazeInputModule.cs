@@ -121,7 +121,7 @@ public class GazeInputModule : BaseInputModule {
 		CastRayFromGaze();
 		UpdateCurrentObject();
 //		PlaceCursor();
-		SetCursor ();
+//		SetCursor ();
 		
 		if (!Cardboard.SDK.TapIsTrigger && !Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) {
 			// Drag is only supported if TapIsTrigger is false.
