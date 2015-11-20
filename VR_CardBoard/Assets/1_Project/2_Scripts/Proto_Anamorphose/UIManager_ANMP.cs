@@ -63,13 +63,13 @@ public class UIManager_ANMP : Singleton<UIManager_ANMP>
 	private void UpdatePanelHUD()
 	{
 		Vector3 pos = trs_Cam_Eye_R.position;
-		pos += distHUD * trs_Cam_Eye_R.forward.normalized;
+		pos += 100 * trs_Cam_Eye_R.forward.normalized;
 		
 		trs_Panel_HUD_R.position = pos;
 		trs_Panel_HUD_R.rotation = trs_Cam_Eye_R.rotation;
 		
 		pos = trs_Cam_Eye_L.position;
-		pos += distHUD * trs_Cam_Eye_L.forward.normalized;
+		pos += 100 * trs_Cam_Eye_L.forward.normalized;
 		trs_Panel_HUD_L.position = pos;
 		trs_Panel_HUD_L.rotation = trs_Cam_Eye_L.rotation;
 	}

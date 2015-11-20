@@ -8,7 +8,7 @@ public class CameraManager_GS : Singleton<CameraManager_GS>
 	[SerializeField]
 	private RPGCamera cam;
 
-	void Awake()
+	public void Awake()
 	{
 		#if UNITY_ANDROID
 		Cardboard_prefab.SetActive(true);
@@ -17,11 +17,11 @@ public class CameraManager_GS : Singleton<CameraManager_GS>
 		#endif	
 	}
 
-	public void SetCamera () 
-	{	
+	public void SetPCPlayer() 
+	{		
 		GameObject player = PhotonNetwork.Instantiate("Robot Kyle RP", Vector3.zero, Quaternion.identity, 0);
 		player.transform.eulerAngles = Vector3.up * 180;
-		
+
 		cam.gameObject.SetActive(true);
 		cam.Target = player.transform;
 	}

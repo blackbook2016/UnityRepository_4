@@ -2,33 +2,21 @@
 using System.Collections;
 
 public class GameManager_GS : Singleton<GameManager_GS> 
-{	
+{
 	[SerializeField]
 	private RPGCamera cam;
 
-	private bool isReady = false;
-
 	void Awake()
 	{
-		EventManager_GS.Instance.GameInit();
-		PhotonManager_GS.Instance.Connect();
+		PhotonManager_GS.Instance.Connect();		
+//		EventManager_GS.Instance.GameInit();
 	}
-
-	public void PlayerReady()
-	{
-		isReady = true;
-		StartGame();
-	}
-
+	
 	public void StartGame()
-	{
-		if(!isReady || PhotonNetwork.playerList.Length != 2)
-			return;
-		
+	{		
 		#if UNITY_STANDALONE		
+		CameraManager_GS.Instance.SetPCPlayer();		
 		UIManager_GS.Instance.DisablePanelMainMenu();
-		CameraManager_GS.Instance.SetCamera();
 		#endif		
 	}
-
 }

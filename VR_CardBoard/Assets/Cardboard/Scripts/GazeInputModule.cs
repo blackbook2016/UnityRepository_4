@@ -139,7 +139,10 @@ public class GazeInputModule : BaseInputModule {
 
 	public void LateUpdate()
 	{
-		SetCursor ();
+		if(Application.loadedLevelName == "ProtoCB_Theo_0.3")
+		{
+			SetCursor ();
+		}
 	}
 	/// @endcond
 	

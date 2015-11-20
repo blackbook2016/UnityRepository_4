@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using PhotonHashTable = ExitGames.Client.Photon.Hashtable;
 
 public class PhotonManager_GS : Photon.PunBehaviour 
 {		
@@ -18,53 +20,126 @@ public class PhotonManager_GS : Photon.PunBehaviour
 	}
 	private static PhotonManager_GS instance = null;
 	
+	private PlayerStatus ps;
+
+	void Update()
+	{
+//		if(PhotonNetwork.room != null)
+//			print (PhotonNetwork.room.customProperties);
+	}
+	
 	public void Connect()
 	{
-//		PhotonPlayer
+		SetPlayerStatus();
+		UpdatePlayerSettings();
+
 		PhotonNetwork.ConnectUsingSettings("0.4");
 	}
 	
 	public override void OnJoinedLobby()
 	{
 		print ("OnJoinedLobby");
-		if(PhotonNetwork.playerList.Length == 0)
-		{
-			RoomOptions roomOptions = new RoomOptions() { isVisible = true, maxPlayers = 2 };
-			PhotonNetwork.JoinOrCreateRoom("roomName", roomOptions, TypedLobby.Default);
-			//		PhotonNetwork.JoinRandomRoom();
-		}
-			foreach(var pl in PhotonNetwork.playerList)
-			{
-				print (pl.allProperties);
-			}
 	}
 	
 	public void OnPhotonRandomJoinFailed()
 	{		
-		print ("OnPhotonRandomJoinFailed");
-		//		PhotonNetwork.CreateRoom(null);
-		RoomOptions roomOptions = new RoomOptions() { isVisible = true, maxPlayers = 2 };
-		PhotonNetwork.JoinOrCreateRoom("roomName", roomOptions, TypedLobby.Default);
-		
+		print ("OnPhotonRandomJoinFailed");		
 	}
 	
 	public override void OnJoinedRoom()
 	{
 		print ("OnJoinedRoom");
-		UIManager_GS.Instance.ButtonReadyEnable();
+		UpdatePlayerSettings();
+		PhotonHashTable props = new PhotonHashTable();
+
+		if(ps.type == PlayerType.PC)
+			props.Add( "PC", true);
+		else
+			props.Add( "VR", true);
+
+		PhotonNetwork.room.SetCustomProperties( props );
+		print (PhotonNetwork.room.customProperties + "   " + PhotonNetwork.room.name);
 	}
 	
 	public override void OnConnectedToMaster()
 	{
 		print ("OnConnectedToMaster");
-//		PhotonNetwork.JoinLobby();
+
+		UIManager_GS.Instance.ButtonReadyEnable();
+		ConnectToRoom();
 	}
 	
 	public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
 	{
-		if (PhotonNetwork.playerList.Length % 2 == 0) 
+		print ("NewPlayer");
+//		if((bool)PhotonNetwork.player.customProperties["RDY"])
+//			MatchMaker();
+
+//		if (PhotonNetwork.playerList.Length % 2 == 0) 
+//		{
+//			GameManager_GS.Instance.StartGame();
+//		} 
+	}
+
+	private void MatchMaker()
+	{
+		List<PlayerStatus> ps_list = new List<PlayerStatus>();
+		foreach(var pl in PhotonNetwork.playerList)
 		{
-			GameManager_GS.Instance.StartGame();
-		} 
+			PlayerStatus ps = new PlayerStatus((bool)pl.customProperties["RDY"], (PlayerType)pl.customProperties["Type"]);
+			ps_list.Add(ps);
+		}
+	}
+
+	private void ConnectToRoom()
+	{		
+		//		if(PhotonNetwork.playerList.Length % 2 != 0)
+		//		{
+		//			RoomOptions roomOptions = new RoomOptions() { isVisible = true, maxPlayers = 2 };
+		//			PhotonNetwork.JoinOrCreateRoom("roomName", roomOptions, TypedLobby.Default);
+		
+		RoomOptions newRoomOptions = new RoomOptions();
+		newRoomOptions.isOpen = true;
+		newRoomOptions.isVisible = true;
+		newRoomOptions.maxPlayers = 2;
+		// in this example, C0 might be 0 or 1 for the two (fictional) game modes
+		if(ps.type == PlayerType.PC)
+		newRoomOptions.customRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "PC", false } };
+		else
+		newRoomOptions.customRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "VR", false } };
+
+		//						newRoomOptions.customRoomPropertiesForLobby = new string[] { "C0" }; // this makes "C0" available in the lobby
+		
+		// let's create this room in SqlLobby "myLobby" explicitly
+		//			TypedLobby sqlLobby = new TypedLobby("myLobby", LobbyType.SqlLobby);
+		//			PhotonNetwork.CreateRoom(roomName, newRoomOptions, sqlLobby);
+		PhotonNetwork.JoinOrCreateRoom("room" + PhotonNetwork.countOfRooms, newRoomOptions, TypedLobby.Default);
+//		PhotonNetwork.JoinRandomRoom(newRoomOptions.customRoomProperties, newRoomOptions.maxPlayers = 2);
+		//		}	
+	}
+
+	private void SetPlayerStatus()
+	{
+		#if UNITY_ANDROID		
+		ps = new PlayerStatus(false, PlayerType.VR);
+		#elif UNITY_STANDALONE		
+		ps = new PlayerStatus(false, PlayerType.PC);
+		#endif
+	}
+	
+	private void UpdatePlayerSettings()
+	{
+		PhotonHashTable props = new PhotonHashTable();
+		
+		props.Add( "Type", ps.type);
+		props.Add( "RDY", ps.isReady);
+		
+		PhotonNetwork.player.SetCustomProperties( props );
+	}
+
+	public void PlayerReady()
+	{
+		ps.isReady = true;
+//		MatchMaker();
 	}
 }

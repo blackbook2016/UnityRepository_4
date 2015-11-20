@@ -61,6 +61,6 @@ public class UIManager_GS : Singleton<UIManager_GS>
 		button_Play.GetComponent<Button>().enabled = false;
 		text_Wait.enabled = true;
 
-		GameManager_GS.Instance.PlayerReady();
+		PhotonManager_GS.Instance.PlayerReady();
 	}
 }
