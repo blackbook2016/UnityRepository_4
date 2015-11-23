@@ -5,6 +5,9 @@ using System.Collections;
 public class UIManager_GS : Singleton<UIManager_GS> 
 {
 	[SerializeField]
+	private GameObject Canvas;
+	
+	[SerializeField]
 	private GameObject panel_MainMenu;
 	[SerializeField]
 	private Text text_Connection;

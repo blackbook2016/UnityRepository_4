@@ -26,6 +26,7 @@ public class PhotonManager_GS : Photon.PunBehaviour
 	{
 //		if(PhotonNetwork.room != null)
 //			print (PhotonNetwork.room.customProperties);
+		print (PhotonNetwork.connectionStateDetailed.ToString());
 	}
 	
 	public void Connect()
@@ -35,17 +36,42 @@ public class PhotonManager_GS : Photon.PunBehaviour
 
 		PhotonNetwork.ConnectUsingSettings("0.4");
 	}
-	
-	public override void OnJoinedLobby()
+
+	public override void OnConnectedToMaster()
 	{
-		print ("OnJoinedLobby");
+		print ("OnConnectedToMaster");
+		
+		UIManager_GS.Instance.ButtonReadyEnable();
+		ConnectToRoom();
 	}
-	
-	public void OnPhotonRandomJoinFailed()
+
+	private void ConnectToRoom()
 	{		
-		print ("OnPhotonRandomJoinFailed");		
+		//		if(PhotonNetwork.playerList.Length % 2 != 0)
+		//		{
+		//			RoomOptions roomOptions = new RoomOptions() { isVisible = true, maxPlayers = 2 };
+		//			PhotonNetwork.JoinOrCreateRoom("roomName", roomOptions, TypedLobby.Default);
+		
+		RoomOptions newRoomOptions = new RoomOptions();
+		newRoomOptions.isOpen = true;
+		newRoomOptions.isVisible = true;
+		newRoomOptions.maxPlayers = 2;
+		
+		if(ps.type == PlayerType.PC)
+		newRoomOptions.customRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "PC", false } };
+		else
+		newRoomOptions.customRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "VR", false } };
+		
+		//			newRoomOptions.customRoomPropertiesForLobby = new string[] { "C0" }; // this makes "C0" available in the lobby
+		
+		// let's create this room in SqlLobby "myLobby" explicitly
+		//			TypedLobby sqlLobby = new TypedLobby("myLobby", LobbyType.SqlLobby);
+		//			PhotonNetwork.CreateRoom(roomName, newRoomOptions, sqlLobby);
+		//			PhotonNetwork.JoinRandomRoom(newRoomOptions.customRoomProperties, newRoomOptions.maxPlayers = 2);
+		//		}	
+		PhotonNetwork.JoinOrCreateRoom("room" + PhotonNetwork.countOfRooms, newRoomOptions, TypedLobby.Default);
 	}
-	
+
 	public override void OnJoinedRoom()
 	{
 		print ("OnJoinedRoom");
@@ -61,12 +87,14 @@ public class PhotonManager_GS : Photon.PunBehaviour
 		print (PhotonNetwork.room.customProperties + "   " + PhotonNetwork.room.name);
 	}
 	
-	public override void OnConnectedToMaster()
+	public override void OnJoinedLobby()
 	{
-		print ("OnConnectedToMaster");
-
-		UIManager_GS.Instance.ButtonReadyEnable();
-		ConnectToRoom();
+		print ("OnJoinedLobby");
+	}
+	
+	public void OnPhotonRandomJoinFailed()
+	{		
+		print ("OnPhotonRandomJoinFailed");		
 	}
 	
 	public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
@@ -81,41 +109,18 @@ public class PhotonManager_GS : Photon.PunBehaviour
 //		} 
 	}
 
+	[PunRPC]
 	private void MatchMaker()
 	{
-		List<PlayerStatus> ps_list = new List<PlayerStatus>();
-		foreach(var pl in PhotonNetwork.playerList)
+		if(PhotonNetwork.playerList.Length > 1)
 		{
-			PlayerStatus ps = new PlayerStatus((bool)pl.customProperties["RDY"], (PlayerType)pl.customProperties["Type"]);
-			ps_list.Add(ps);
+			foreach(var pl in PhotonNetwork.playerList)
+			{
+				if(!(bool)pl.customProperties["RDY"])
+					return;
+			}
+			GameManager_GS.Instance.StartGame();
 		}
-	}
-
-	private void ConnectToRoom()
-	{		
-		//		if(PhotonNetwork.playerList.Length % 2 != 0)
-		//		{
-		//			RoomOptions roomOptions = new RoomOptions() { isVisible = true, maxPlayers = 2 };
-		//			PhotonNetwork.JoinOrCreateRoom("roomName", roomOptions, TypedLobby.Default);
-		
-		RoomOptions newRoomOptions = new RoomOptions();
-		newRoomOptions.isOpen = true;
-		newRoomOptions.isVisible = true;
-		newRoomOptions.maxPlayers = 2;
-		// in this example, C0 might be 0 or 1 for the two (fictional) game modes
-		if(ps.type == PlayerType.PC)
-		newRoomOptions.customRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "PC", false } };
-		else
-		newRoomOptions.customRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "VR", false } };
-
-		//						newRoomOptions.customRoomPropertiesForLobby = new string[] { "C0" }; // this makes "C0" available in the lobby
-		
-		// let's create this room in SqlLobby "myLobby" explicitly
-		//			TypedLobby sqlLobby = new TypedLobby("myLobby", LobbyType.SqlLobby);
-		//			PhotonNetwork.CreateRoom(roomName, newRoomOptions, sqlLobby);
-		PhotonNetwork.JoinOrCreateRoom("room" + PhotonNetwork.countOfRooms, newRoomOptions, TypedLobby.Default);
-//		PhotonNetwork.JoinRandomRoom(newRoomOptions.customRoomProperties, newRoomOptions.maxPlayers = 2);
-		//		}	
 	}
 
 	private void SetPlayerStatus()
@@ -140,6 +145,6 @@ public class PhotonManager_GS : Photon.PunBehaviour
 	public void PlayerReady()
 	{
 		ps.isReady = true;
-//		MatchMaker();
+		photonView.RPC("MatchMaker", PhotonTargets.All);
 	}
 }
