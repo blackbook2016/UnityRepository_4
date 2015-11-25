@@ -11,9 +11,11 @@ public class CameraManager_GS : Singleton<CameraManager_GS>
 	public void Awake()
 	{
 		#if UNITY_ANDROID
+		cam.gameObject.SetActive(false);
 		Cardboard_prefab.SetActive(true);
 		#elif UNITY_STANDALONE
 		Cardboard_prefab.SetActive(false);
+		cam.gameObject.SetActive(true);
 		#endif	
 	}
 

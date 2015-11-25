@@ -24,13 +24,6 @@ public class UIManager_GS : Singleton<UIManager_GS>
 
 	void Awake()
 	{		
-		#if UNITY_ANDROID
-		Canvas_World.SetActive(true);
-		Canvas_Overlay.SetActive(false);
-		canvas_current = Canvas_World;
-		#elif UNITY_STANDALONE
-		Cardboard_prefab.SetActive(false);
-		#endif
 		EnablePanelMainMenu();
 	}
 
@@ -40,14 +33,38 @@ public class UIManager_GS : Singleton<UIManager_GS>
 	}
 
 	private void EnablePanelMainMenu()
-	{		
+	{
+		#if UNITY_ANDROID
+		Canvas_Overlay.SetActive(false);
+		Canvas_World.SetActive(true);
+		canvas_current = Canvas_World;
+
+		panel_MainMenu = canvas_current.transform.GetChild(0).gameObject;
+		text_Connection = panel_MainMenu.transform.FindChild("Text_Connection").GetComponent<Text>();
+		button_Play = panel_MainMenu.transform.FindChild("Button_Ready").gameObject;
+		text_Wait = panel_MainMenu.transform.FindChild("Text_Wait").GetComponent<Text>();
+
 		Camera.main.cullingMask = 1 << 5;
 		Camera.main.clearFlags = CameraClearFlags.SolidColor;
-
+		
 		text_Connection.enabled = true;
 		button_Play.SetActive(false);
 		text_Wait.enabled = false;
 		panel_MainMenu.SetActive(true);
+
+		#elif UNITY_STANDALONE
+		Canvas_World.SetActive(false);
+		Canvas_Overlay.SetActive(true);
+		canvas_current = Canvas_Overlay;
+
+		Camera.main.cullingMask = 1 << 5;
+		Camera.main.clearFlags = CameraClearFlags.SolidColor;
+		
+		text_Connection.enabled = true;
+		button_Play.SetActive(false);
+		text_Wait.enabled = false;
+		panel_MainMenu.SetActive(true);
+		#endif
 	}
 
 	public void DisablePanelMainMenu()
@@ -78,5 +95,6 @@ public class UIManager_GS : Singleton<UIManager_GS>
 		text_Wait.enabled = true;
 
 		PhotonManager_GS.Instance.PlayerReady();
+		print ("Clicked");
 	}
 }

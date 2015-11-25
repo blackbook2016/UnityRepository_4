@@ -14,7 +14,8 @@ public class GameManager_GS : Singleton<GameManager_GS>
 	
 	public void StartGame()
 	{		
-		#if UNITY_STANDALONE		
+		#if UNITY_ANDROID
+		#elif UNITY_STANDALONE		
 		CameraManager_GS.Instance.SetPCPlayer();		
 		UIManager_GS.Instance.DisablePanelMainMenu();
 		#endif		

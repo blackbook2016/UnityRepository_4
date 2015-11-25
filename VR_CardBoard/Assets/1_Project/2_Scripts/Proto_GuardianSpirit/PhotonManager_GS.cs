@@ -26,7 +26,7 @@ public class PhotonManager_GS : Photon.PunBehaviour
 	{
 //		if(PhotonNetwork.room != null)
 //			print (PhotonNetwork.room.customProperties);
-		print (PhotonNetwork.connectionStateDetailed.ToString());
+//		print (PhotonNetwork.connectionStateDetailed.ToString());
 	}
 	
 	public void Connect()
