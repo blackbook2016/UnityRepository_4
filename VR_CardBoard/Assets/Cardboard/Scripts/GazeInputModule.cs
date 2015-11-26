@@ -122,16 +122,20 @@ public class GazeInputModule : BaseInputModule {
 		UpdateCurrentObject();
 //		PlaceCursor();
 		
-		if (!Cardboard.SDK.TapIsTrigger && !Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) {
+		if (!Cardboard.SDK.TapIsTrigger && !Input.GetMouseButtonDown(0) && Input.GetMouseButton(0)) 
+		{
 			// Drag is only supported if TapIsTrigger is false.
 			HandleDrag();
-		} else if (Time.unscaledTime - pointerData.clickTime < clickTime) {
+		} else if (Time.unscaledTime - pointerData.clickTime < clickTime) 
+		{
 			// Delay new events until clickTime has passed.
 		} else if (!pointerData.eligibleForClick &&
-		           (Cardboard.SDK.Triggered || !Cardboard.SDK.TapIsTrigger && Input.GetMouseButtonDown(0))) {
+		           (Cardboard.SDK.Triggered || !Cardboard.SDK.TapIsTrigger && Input.GetMouseButtonDown(0))) 
+		{
 			// New trigger action.
 			HandleTrigger();
-		} else if (!Cardboard.SDK.Triggered && !Input.GetMouseButton(0)) {
+		} else if (!Cardboard.SDK.Triggered && !Input.GetMouseButton(0)) 
+		{
 			// Check if there is a pending click to handle.
 			HandlePendingClick();
 		}

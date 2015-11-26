@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 45de8d6250249334f97224b88816adac
+timeCreated: 1448557352
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Box119
+    100002: Box120
+    100004: Box121
+    100006: Box122
+    100008: Box58
+    100010: ChamferBo1
+    100012: ChamferBo2
+    100014: Cylinder07
+    100016: Cylinder08
+    100018: Cylinder09
+    100020: Cylinder10
+    100022: Cylinder11
+    100024: Cylinder12
+    100026: Cylinder13
+    100028: Cylinder14
+    100030: Desk ArmCh
+    100032: //RootNode
+    100034: Desk Chair
+    100036: Sphere03
+    100038: Sphere09
+    100040: Sphere10
+    100042: Sphere11
+    100044: Sphere12
+    100046: Sphere13
+    100048: Wheels
+    100050: Wheels Par
+    100052: Wheels01
+    100054: Wheels02
+    100056: Wheels03
+    100058: Wheels04
+    400000: Box119
+    400002: Box120
+    400004: Box121
+    400006: Box122
+    400008: Box58
+    400010: ChamferBo1
+    400012: ChamferBo2
+    400014: Cylinder07
+    400016: Cylinder08
+    400018: Cylinder09
+    400020: Cylinder10
+    400022: Cylinder11
+    400024: Cylinder12
+    400026: Cylinder13
+    400028: Cylinder14
+    400030: Desk ArmCh
+    400032: //RootNode
+    400034: Desk Chair
+    400036: Sphere03
+    400038: Sphere09
+    400040: Sphere10
+    400042: Sphere11
+    400044: Sphere12
+    400046: Sphere13
+    400048: Wheels
+    400050: Wheels Par
+    400052: Wheels01
+    400054: Wheels02
+    400056: Wheels03
+    400058: Wheels04
+    2300000: Box119
+    2300002: Box120
+    2300004: Box121
+    2300006: Box122
+    2300008: Box58
+    2300010: ChamferBo1
+    2300012: ChamferBo2
+    2300014: Cylinder07
+    2300016: Cylinder08
+    2300018: Cylinder09
+    2300020: Cylinder10
+    2300022: Cylinder11
+    2300024: Cylinder12
+    2300026: Cylinder13
+    2300028: Cylinder14
+    2300030: Sphere03
+    2300032: Sphere09
+    2300034: Sphere10
+    2300036: Sphere11
+    2300038: Sphere12
+    2300040: Sphere13
+    3300000: Box119
+    3300002: Box120
+    3300004: Box121
+    3300006: Box122
+    3300008: Box58
+    3300010: ChamferBo1
+    3300012: ChamferBo2
+    3300014: Cylinder07
+    3300016: Cylinder08
+    3300018: Cylinder09
+    3300020: Cylinder10
+    3300022: Cylinder11
+    3300024: Cylinder12
+    3300026: Cylinder13
+    3300028: Cylinder14
+    3300030: Sphere03
+    3300032: Sphere09
+    3300034: Sphere10
+    3300036: Sphere11
+    3300038: Sphere12
+    3300040: Sphere13
+    4300000: Sphere03
+    4300002: Cylinder07
+    4300004: Cylinder08
+    4300006: ChamferBo1
+    4300008: ChamferBo2
+    4300010: Box119
+    4300012: Box120
+    4300014: Box121
+    4300016: Box122
+    4300018: Sphere13
+    4300020: Cylinder14
+    4300022: Cylinder11
+    4300024: Sphere10
+    4300026: Cylinder12
+    4300028: Sphere11
+    4300030: Sphere12
+    4300032: Cylinder13
+    4300034: Box58
+    4300036: Cylinder09
+    4300038: Cylinder10
+    4300040: Sphere09
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -74,6 +74,14 @@ public class Player_Border : Photon.MonoBehaviour
 		}
 	}
 
+	void LateUpdate()
+	{
+		if(photonView.isMine)
+		{
+			CheckDraggable();
+		}
+	}
+
 	private void moveToDestPov()
 	{
 		if(Vector3.Distance(dest_POV.position, Cardboard.SDK.transform.position) > 0.05f)
@@ -110,7 +118,6 @@ public class Player_Border : Photon.MonoBehaviour
 				dist_Draggable = hit.distance;
 			}
 		}
-		UIManager_Border.Instance.SetCursorColor(Color.blue);
 	}
 	
 	public bool isDragging()

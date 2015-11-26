@@ -72,18 +72,17 @@ public class ObjectDraggable : MonoBehaviour
 	{
 		if(photonView.isMine)
 		{
-			transform.position += vel;
+			rb.velocity = vel;
 			photonView.RPC("UpdateObject", PhotonTargets.All, transform.position, transform.eulerAngles, vel);
 		}
-//		rb.velocity = vel;
 	}
 
 	[PunRPC]
 	public void UpdateObject(Vector3 pos, Vector3 rot, Vector3 vel)
 	{
-		transform.position = pos + vel;
+		transform.position = pos;
 		transform.eulerAngles = rot;
-//		rb.velocity = vel;
+		rb.velocity = vel;
 	}
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
