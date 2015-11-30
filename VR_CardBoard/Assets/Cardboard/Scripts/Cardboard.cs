@@ -590,7 +590,8 @@ public class Cardboard : MonoBehaviour {
   }
 
   /// Resets the tracker so that the user's current direction becomes forward.
-  public void Recenter() {
+  public void Recenter() 
+	{
     device.Recenter();
   }
 

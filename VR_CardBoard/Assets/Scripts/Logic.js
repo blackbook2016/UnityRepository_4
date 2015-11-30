@@ -1,11 +1,11 @@
 var skies : Material[];
 var currentMaterial : int = 0;
-var skyNameGuiText : GUIText;
+//var skyNameGuiText : GUIText;
 
 function Start() {
 	currentMaterial = 0;
 	RenderSettings.skybox = skies[currentMaterial];
-	skyNameGuiText.text = skies[currentMaterial].name;
+//	skyNameGuiText.text = skies[currentMaterial].name;
 	
 	// Hide + lock the cursor
 	Cursor.visible = false;
@@ -33,5 +33,5 @@ function ToggleMaterial() {
 		currentMaterial = 0;
 	}
 	RenderSettings.skybox = skies[currentMaterial];
-	skyNameGuiText.text = skies[currentMaterial].name;
+//	skyNameGuiText.text = skies[currentMaterial].name;
 }

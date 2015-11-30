@@ -23,6 +23,8 @@ public class Player_RoundTable : Photon.MonoBehaviour
 			transform.position = Camera.main.transform.position;
 			transform.rotation = Camera.main.transform.rotation;		
 			transform.parent = Camera.main.transform.parent;
+
+			UIManager_RoundTable.Instance.SetPanelFloor(transform);
 		}
 	}
 	
@@ -66,10 +68,11 @@ public class Player_RoundTable : Photon.MonoBehaviour
 		RaycastHit hit;
 		if(Input.GetMouseButtonDown(0))
 		{
-			if(Physics.Raycast(head.Gaze, out hit, Mathf.Infinity) && 
+			if(Physics.SphereCast(head.Gaze, 0.3f, out hit, Mathf.Infinity) && 
 			   hit.collider.GetComponent<ObjectDraggable>())
 			{
 				obj_Draggable = hit.collider.GetComponent<ObjectDraggable>();
+				obj_Draggable.RequestOwnership();
 				dist_Draggable = hit.distance;
 			}
 		}
@@ -80,8 +83,7 @@ public class Player_RoundTable : Photon.MonoBehaviour
 		if (photonView.isMine && stream.isWriting)
 		{
 			stream.SendNext(transform.position);
-			stream.SendNext(transform.rotation);
-			
+			stream.SendNext(transform.rotation);			
 		}
 		else
 		{

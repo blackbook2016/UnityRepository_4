@@ -24,9 +24,6 @@ public class ObjectDraggable : MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.Space))
 			Change();
-
-//		rb.isKinematic = !photonView.isMine;
-		
 	}
 	
 	void OnEnable() 
@@ -80,8 +77,8 @@ public class ObjectDraggable : MonoBehaviour
 	[PunRPC]
 	public void UpdateObject(Vector3 pos, Vector3 rot, Vector3 vel)
 	{
-		transform.position = pos;
-		transform.eulerAngles = rot;
+//		transform.position = pos;
+//		transform.eulerAngles = rot;
 		rb.velocity = vel;
 	}
 

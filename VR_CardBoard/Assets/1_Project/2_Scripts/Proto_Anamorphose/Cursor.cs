@@ -22,7 +22,7 @@ public class Cursor : MonoBehaviour
 		}
 		else
 		{
-			dist = Camera.main.farClipPlane * 0.95f;
+			dist = Camera.main.farClipPlane - 0.95f;
 		}
 
 		transform.position = head.transform.position + head.transform.forward * dist;

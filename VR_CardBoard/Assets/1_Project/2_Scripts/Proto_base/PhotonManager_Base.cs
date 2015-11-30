@@ -19,18 +19,18 @@ public class PhotonManager_Base : Photon.PunBehaviour
 		}
 	}
 	private static PhotonManager_Base instance = null;
-
+	
 	[SerializeField]
 	private List<string> list_InstantiateObj = new List<string>();
-
+	
 	[SerializeField]
 	private List<Transform> list_SpawnPoints = new List<Transform>();
-
+	
 	void Awake()
 	{
 		Connect();
 	}
-
+	
 	void OnGUI()
 	{
 		GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
@@ -65,16 +65,43 @@ public class PhotonManager_Base : Photon.PunBehaviour
 	{
 		return PhotonNetwork.connectionStateDetailed;
 	}
-
+	
 	private void LoadViewers()
 	{
 		foreach(var name in list_InstantiateObj)
 		{			
 			GameObject player = PhotonNetwork.Instantiate(name, transform.position, Quaternion.identity, 0);
-		}
-		
+		}		
 		
 		if(list_SpawnPoints.Count != 0)
-			Cardboard.SDK.transform.position = list_SpawnPoints[Random.Range(0, list_SpawnPoints.Count)].position;
+		{
+			List<int> EmptyChairs = new List<int>();
+			EmptyChairs.Add(0);
+			EmptyChairs.Add(1);
+			EmptyChairs.Add(2);
+			EmptyChairs.Add(3);
+			
+			if(PhotonNetwork.playerList.Length != 1)
+			{
+				foreach(var pl in PhotonNetwork.playerList)
+				{
+					if(pl.customProperties["TC"] != null)
+					{
+						int takenChair = (int)pl.customProperties["TC"];
+						if(EmptyChairs.Contains(takenChair))
+							EmptyChairs.Remove(takenChair);
+					}
+				}
+			}
+			
+			int rand = EmptyChairs[Random.Range(0, EmptyChairs.Count)];
+			Cardboard.SDK.transform.position = list_SpawnPoints[rand].position;
+			Cardboard.SDK.transform.rotation = list_SpawnPoints[rand].rotation;
+			
+			PhotonHashTable props = new PhotonHashTable();
+			props.Add( "TC", rand);
+			
+			PhotonNetwork.player.SetCustomProperties(props);
+		}
 	}
 }
